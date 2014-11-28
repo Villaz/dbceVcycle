@@ -174,7 +174,7 @@ touch /etc/machineoutputs/vm-pilot.err
 /usr/bin/sudo -n -u atlas /var/spool/checkout/testvcycle/vm-pilot >/etc/machineoutputs/vm-pilot.out 2>&1
 
 # Tell Vac what the outcome was
-/var/spool/checkout/testvcycle/parse-vm-pilot-out /etc/machineoutputs/vm-pilot.out >/etc/machineoutputs/shutdown_message
+/var/spool/checkout/dbceVcycle/parse-vm-pilot-out /etc/machineoutputs/vm-pilot.out >/etc/machineoutputs/shutdown_message
 
 /bin/cp -f /scratch/tmp/*/pilot3/*/pilotlog.txt \
            /etc/machineoutputs
