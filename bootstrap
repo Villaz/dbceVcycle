@@ -119,9 +119,9 @@ else
 fi
 
 # ATLAS Ganglia. Need 3.2.0+ to get override_hostname needed by NAT.
-rpm --nodeps -e ganglia ganglia-gmond ganglia-gmetad ganglia-web
-rpm -i http://downloads.sourceforge.net/project/ganglia/ganglia%20monitoring%20core/3.4.0/RHEL6-RPMS/libganglia-3.4.0-1.x86_64.rpm \
-       http://downloads.sourceforge.net/project/ganglia/ganglia%20monitoring%20core/3.4.0/RHEL6-RPMS/ganglia-gmond-3.4.0-1.x86_64.rpm
+#rpm --nodeps -e ganglia ganglia-gmond ganglia-gmetad ganglia-web
+#rpm -i http://downloads.sourceforge.net/project/ganglia/ganglia%20monitoring%20core/3.4.0/RHEL6-RPMS/libganglia-3.4.0-1.x86_64.rpm \
+#       http://downloads.sourceforge.net/project/ganglia/ganglia%20monitoring%20core/3.4.0/RHEL6-RPMS/ganglia-gmond-3.4.0-1.x86_64.rpm
 
 GMONDPORT=`python -c "import requests ; print requests.get('http://hn-ganglia-monitor/hn-gmond-cluster-cfg.json', timeout=60).json()['$3']['Port']"`
 if [ $? = 0 -a "$GMONDPORT" != "" ] ; then
