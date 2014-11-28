@@ -28,7 +28,7 @@ rm /root/combined.pem
 touch /etc/machineoutputs/vm-heartbeat
 
 # Create a shutdown_message if ACPI shutdown signal received
-cp -f /var/spool/checkout/testvcycle/power.sh /etc/acpi/actions/power.sh
+cp -f /var/spool/checkout/dbceVcycle/power.sh /etc/acpi/actions/power.sh
 
 # Needed for POSIX semaphores
 mount /dev/shm
@@ -102,7 +102,7 @@ mkdir -p /scratch/tmp
 chmod ugo+rwxt /scratch/tmp
 
 touch /etc/machineoutputs/athena-heartbeat
-echo '*/5 * * * * root /var/spool/checkout/testvcycle/make-athena-heartbeat' >/etc/cron.d/athena-heartbeat
+echo '*/5 * * * * root /var/spool/checkout/dbceVcycle/make-athena-heartbeat' >/etc/cron.d/athena-heartbeat
 
 if [ "$META_MACHINEOUTPUTS" == "" ] ; then
   # vm-heartbeat is writtenevery 5 minutes
@@ -118,7 +118,7 @@ fi
 
 GMONDPORT=`python -c "import requests ;import json; re=requests.get('http://hn-ganglia-monitor.cern.ch/hn-gmond-cluster-cfg.json', timeout=60).text; re= re[:re.find(', \"host')] + '}'; print json.loads(re)['$3']['Port']"`
 if [ $? = 0 -a "$GMONDPORT" != "" ] ; then
-  sed -e "s/##HOST_NAME##/$HOSTNAME/" -e "s/##SITE_NAME##/$3/" -e "s/##PORT_NUMBER##/$GMONDPORT/" /var/spool/checkout/testvcycle/gmond.conf > /etc/ganglia/gmond.conf
+  sed -e "s/##HOST_NAME##/$HOSTNAME/" -e "s/##SITE_NAME##/$3/" -e "s/##PORT_NUMBER##/$GMONDPORT/" /var/spool/checkout/dbceVcycle/gmond.conf > /etc/ganglia/gmond.conf
   service gmond restart
 fi
 
@@ -171,7 +171,7 @@ echo 'Defaults visiblepw'   >>/etc/sudoers
 
 # Run vm-pilot
 touch /etc/machineoutputs/vm-pilot.err
-/usr/bin/sudo -n -u atlas /var/spool/checkout/testvcycle/vm-pilot >/etc/machineoutputs/vm-pilot.out 2>&1
+/usr/bin/sudo -n -u atlas /var/spool/checkout/dbceVcycle/vm-pilot >/etc/machineoutputs/vm-pilot.out 2>&1
 
 # Tell Vac what the outcome was
 /var/spool/checkout/dbceVcycle/parse-vm-pilot-out /etc/machineoutputs/vm-pilot.out >/etc/machineoutputs/shutdown_message
