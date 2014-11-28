@@ -116,7 +116,7 @@ else
 fi
 
 
-GMONDPORT=`python -c "import requests ; print requests.get('http://hn-ganglia-monitor.cern.ch/hn-gmond-cluster-cfg.json', timeout=60).json()['$3']['Port']"`
+GMONDPORT=`python -c "import requests ;import json; re=requests.get('http://hn-ganglia-monitor.cern.ch/hn-gmond-cluster-cfg.json', timeout=60).text; re= re[:re.find(', \"host')] + '}'; print json.loads(re)['$3']['Port']"`
 if [ $? = 0 -a "$GMONDPORT" != "" ] ; then
   sed -e "s/##HOST_NAME##/$HOSTNAME/" -e "s/##SITE_NAME##/$3/" -e "s/##PORT_NUMBER##/$GMONDPORT/" /var/spool/checkout/testvcycle/gmond.conf > /etc/ganglia/gmond.conf
   service gmond restart
