@@ -115,9 +115,6 @@ else
   echo -e "RANDOM_DELAY=9\n*/10 * * * * root echo \`cut -f1-3 -d' ' /proc/loadavg\` \`cat /proc/uptime\` >/etc/machineoutputs/vm-heartbeat ; /usr/bin/curl --upload-file /etc/machineoutputs/vm-heartbeat $META_MACHINEOUTPUTS/`hostname`/vm-heartbeat >/tmp/curl.log 2>&1" >/etc/cron.d/vm-heartbeat
 fi
 
-rpm --nodeps -e ganglia ganglia-gmond ganglia-gmetad ganglia-web
-rpm -i http://downloads.sourceforge.net/project/ganglia/ganglia%20monitoring%20core/3.4.0/RHEL6-RPMS/libganglia-3.4.0-1.x86_64.rpm \
-       http://downloads.sourceforge.net/project/ganglia/ganglia%20monitoring%20core/3.4.0/RHEL6-RPMS/ganglia-gmond-3.4.0-1.x86_64.rpm
 GMONDPORT=`python -c "import requests ;import json; re=requests.get('http://hn-ganglia-monitor.cern.ch/hn-gmond-cluster-cfg.json', timeout=60).text; re= re[:re.find(', \"host')] + '}'; print json.loads(re)['$3']['Port']"`
 if [ $? = 0 -a "$GMONDPORT" != "" ] ; then
   sed -e "s/##HOST_NAME##/$HOSTNAME/" -e "s/##SITE_NAME##/$3/" -e "s/##PORT_NUMBER##/$GMONDPORT/" /var/spool/checkout/dbceVcycle/gmond.conf > /etc/ganglia/gmond.conf
