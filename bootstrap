@@ -14,7 +14,7 @@ host=`hostname`
 b=(${host//-/ })
 startMachine=${b[2]}
 actual=$(date +%s)
-boottime=$(($actual - $startMachine))
+boottime=$((actual - startMachine))
 start=$(date +%s)
 
 echo Output of VM bootstrap for `hostname`
